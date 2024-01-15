@@ -39,6 +39,9 @@ async function run() {
       
 
     });
+    app.get('/test',(req,res)=>{
+      res.json({name:"rakib"})
+    })
 
     app.post('/upload',async (req, res) => {
       try {
