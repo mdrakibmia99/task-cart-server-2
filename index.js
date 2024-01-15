@@ -1,10 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const multer = require('multer');
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
-
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -31,15 +29,20 @@ async function run() {
 
     // get all attachment
     app.get('/tasks', async (req, res) => {
-      const tasks = await tasksCollection.find({}).toArray();
-      res.json(tasks);
+      try {
+        const tasks = await tasksCollection.find({}).toArray();
+        res.json(tasks);
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }
+      
 
     });
 
     app.post('/upload',async (req, res) => {
       try {
         const files = req.body;
-        console.log(req?.files,"files value")
         const result = await tasksCollection.insertOne({files});
         res.status(200).json(result);
       } catch (error) {
