@@ -19,12 +19,12 @@ const client = new MongoClient(uri, {
 });
 
 
+const db = client.db('taskCart');
+const tasksCollection =db.collection('attachments');
 
-async function run() {
-  try {
-    // await client.connect();
-    // const db = await client.db('taskCart');
-    // const tasksCollection =await db.collection('attachments');
+
+// async function run() {
+//   try {
      
     app.get('/test',(req,res)=>{
       res.json({name:"rakib"})
@@ -54,10 +54,10 @@ async function run() {
       }
     });
 
-  } finally {
-  }
-}
-run().catch(console.dir);
+  // } finally {
+  // }
+// }
+// run().catch(console.dir);
 app.get('/', (req, res) => {
   res.send(`${uri} task cart server is Running-->`)
 })
