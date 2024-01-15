@@ -22,10 +22,13 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
-    const db = await client.db('taskCart');
-    const tasksCollection =await db.collection('attachments');
-
+    // await client.connect();
+    // const db = await client.db('taskCart');
+    // const tasksCollection =await db.collection('attachments');
+     
+    app.get('/test',(req,res)=>{
+      res.json({name:"rakib"})
+    });
     // get all attachment
     app.get('/tasks', async (req, res) => {
       try {
@@ -38,9 +41,7 @@ async function run() {
       
 
     });
-    app.get('/test',(req,res)=>{
-      res.json({name:"rakib"})
-    })
+   
 
     app.post('/upload',async (req, res) => {
       try {
