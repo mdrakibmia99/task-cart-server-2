@@ -1,5 +1,4 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
@@ -25,7 +24,7 @@ async function run() {
   try {
     await client.connect();
     const db = await client.db('taskCart');
-    const tasksCollection = db.collection('attachments');
+    const tasksCollection =await db.collection('attachments');
 
     // get all attachment
     app.get('/tasks', async (req, res) => {
