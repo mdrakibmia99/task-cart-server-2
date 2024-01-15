@@ -10,7 +10,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json()); 
-const uri  = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@taskmaster.xualaxs.mongodb.net/?retryWrites=true&w=majority`;
+const uri  = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@taskcart.ijdx8nu.mongodb.net/taskCart?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -24,7 +24,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     await client.connect();
-    const db = await client.db('task-cart');
+    const db = await client.db('taskCart');
     const tasksCollection = db.collection('attachments');
 
     // get all attachment
