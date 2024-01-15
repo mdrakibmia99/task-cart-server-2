@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const multer = require('multer');
 require('dotenv').config();
@@ -10,6 +11,7 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json()); 
 const uri  = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@taskmaster.xualaxs.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   serverApi: {
@@ -19,15 +21,7 @@ const client = new MongoClient(uri, {
   },
 });
 
-// Configure Multer for handling file uploads
-const storage = multer.diskStorage({
-  destination: './uploads',
-  filename: (req, file, cb) => {
-    cb(null, `${file.originalname}`);
-  },
-});
 
-const upload = multer({ storage });
 
 async function run() {
   try {
@@ -42,12 +36,9 @@ async function run() {
 
     });
 
-    app.post('/upload',  upload.array('attachments'),async (req, res) => {
+    app.post('/upload',async (req, res) => {
       try {
-        const files = req.files?.map((file) => ({
-          filename: file.filename,
-          path: file.path,
-        }));
+        const files = req.body;
         console.log(req?.files,"files value")
         const result = await tasksCollection.insertOne({files});
         res.status(200).json(result);
