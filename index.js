@@ -9,7 +9,7 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(bodyParser.json()); 
+
 const uri  = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@taskcart.ijdx8nu.mongodb.net/taskCart?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   serverApi: {
